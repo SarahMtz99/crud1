@@ -53,7 +53,7 @@
                 <input type="file" id="imagen" class="hidden" accept="image/*">
             </div>
             
-            
+             
 
         
             <button type="submit" class="w-full bg-gradient-to-r from-indigo-600 to-purple-800 text-white font-semibold p-3 rounded-lg shadow-md hover:shadow-lg hover:brightness-110 transition-transform transform hover:scale-105">
@@ -185,29 +185,43 @@ document.getElementById("confirmarEnvio").addEventListener("click", async functi
             mostrarError("usuario", "El usuario debe tener al menos 3 caracteres.");
             isValid = false;
         }
+        if (!/^[a-zA-Z]+$/.test(usuario)) {
+            mostrarError("usuario", "El usuario solo puede contener letras, sin espacios, números o símbolos.");
+            isValid = false;
+        }
         if (password.length < 6) {
             mostrarError("password", "La contraseña debe tener al menos 6 caracteres.");
             isValid = false;
         }
+        if (password.includes(" ")) {
+            mostrarError("password", "La contraseña no puede contener espacios, se reemplazarán automáticamente por '_'.");
+        }
         if (!fecha) {
             mostrarError("fecha", "Por favor, seleccione una fecha.");
+            isValid = false;
+        }
+        if (isNaN(fecha) || fecha > hoy) {
+            mostrarError("fecha", "Seleccione una fecha válida.");
             isValid = false;
         }
         if (texto.length < 5) {
             mostrarError("texto", "El comentario debe tener al menos 5 caracteres.");
             isValid = false;
         }
+        if (texto.length === 0 || texto.trim().length === 0) {
+            mostrarError("texto", "El campo de texto no puede estar vacío o solo contener espacios.");
+            isValid = false;
+        }
         if (imagen) {
-            const validFormats = ["image/jpeg", "image/png", "image/gif"];
+            const validFormats = ["image/jpeg", "image/png", "image/jpg"];
             if (!validFormats.includes(imagen.type)) {
-                mostrarError("imagen", "Formato de imagen no válido (solo JPG, PNG, GIF).");
+                mostrarError("imagen", "Formato de imagen no válido (solo JPG, PNG).");
                 isValid = false;
             }
         }
-
         return isValid;
     }
-
+    
     function mostrarError(id, mensaje) {
         const input = document.getElementById(id);
         const error = document.createElement("p");
@@ -216,8 +230,5 @@ document.getElementById("confirmarEnvio").addEventListener("click", async functi
         input.insertAdjacentElement("afterend", error);
     }
 </script>
-
-    
-
 </body>
 </html>
