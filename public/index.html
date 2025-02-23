@@ -53,6 +53,9 @@
                     <span id="nombreArchivo" class="text-gray-200">Seleccionar imagen</span>
                     <input type="file" id="imagen" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" accept="image/*">
                 </div>
+            
+                <!-- Botón para visualizar la imagen -->
+                <button id="verImagen" class="hidden mt-2 text-cyan-400 underline text-sm">Visualizar Imagen</button>
             </div>
             
             <!-- Modal -->
@@ -194,7 +197,7 @@
             if (fileName.length > 25) {
                 fileName = fileName.substring(0, 22) + "...";
             }
-            
+    
             const nameLabel = document.getElementById("nombreImagen");
             nameLabel.innerText = fileName;
             nameLabel.title = file.name;
@@ -208,11 +211,19 @@
                 document.getElementById("modalImagen").classList.remove("hidden");
             };
             reader.readAsDataURL(file);
+    
+            // Mostrar botón "Visualizar Imagen"
+            document.getElementById("verImagen").classList.remove("hidden");
         }
     });
     
-    // Abrir modal al hacer clic en el nombre de la imagen
-    document.getElementById("nombreImagen").addEventListener("click", function() {
+    // Abrir modal desde el nombre de la imagen o el botón "Visualizar Imagen"
+    document.getElementById("nombreImagen").addEventListener("click", function(event) {
+        event.preventDefault(); // Evita cualquier acción predeterminada
+        document.getElementById("modalImagen").classList.remove("hidden");
+    });
+    document.getElementById("verImagen").addEventListener("click", function(event) {
+        event.preventDefault(); // Evita cualquier acción predeterminada
         document.getElementById("modalImagen").classList.remove("hidden");
     });
     
