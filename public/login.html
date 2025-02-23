@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login de Usuario</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script> 
+</head>
+<body class="bg-gradient-to-br from-gray-900 to-gray-800 flex items-center justify-center min-h-screen p-6">
+    <div class="max-w-lg w-full bg-gray-800/90 backdrop-blur-md p-8 border border-gray-700 rounded-2xl shadow-lg shadow-gray-900 hover:shadow-xl transition">
+        <h2 class="text-3xl font-bold text-center text-gray-200 drop-shadow-md mb-6">Login de Usuario</h2>
+        <form id="loginForm" class="space-y-5" novalidate>
+            <div>
+                <label for="loginUsuario" class="block font-semibold text-gray-300 mb-2">Usuario</label>
+                <input type="text" id="loginUsuario" placeholder="Ingrese su usuario" 
+                    class="w-full bg-gray-700 border border-gray-600 text-gray-200 placeholder-gray-400 p-3 rounded-lg shadow-sm focus:ring-2 focus:ring-indigo-500 outline-none transition-all" required />
+            </div>
+
+            <div>
+                <label for="loginPassword" class="block font-semibold text-gray-300 mb-2">Contraseña</label>
+                <input type="password" id="loginPassword" placeholder="Ingrese su contraseña" 
+                    class="w-full bg-gray-700 border border-gray-600 text-gray-200 placeholder-gray-400 p-3 rounded-lg shadow-sm focus:ring-2 focus:ring-indigo-500 outline-none transition-all" required />
+            </div>
+            <button type="submit" 
+                class="w-full bg-gradient-to-r from-indigo-600 to-purple-800 text-white font-semibold p-3 rounded-lg shadow-md hover:shadow-lg hover:brightness-110 transition-transform transform hover:scale-105">
+                Iniciar Sesión
+            </button>
+        </form>
+        <p class="text-center mt-6 text-gray-400">
+            ¿No tienes cuenta? <a href="index.html" class="text-indigo-400 font-semibold hover:underline">Regístrate aquí</a>
+        </p>
+    </div>
+
+    <!-- Modal Genérico -->
+    <div id="modalMensaje" class="fixed inset-0 bg-black/50 flex justify-center items-center hidden transition-opacity">
+        <div class="bg-gray-800 p-6 rounded-xl shadow-xl max-w-sm w-full transform opacity-0 transition-opacity duration-500">
+            <h2 class="text-lg font-bold text-gray-200 mb-4" id="modalTitulo"></h2>
+            <p class="text-gray-400" id="modalTexto"></p>
+            <div class="flex justify-end mt-4">
+                <button id="cerrarModal" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition">Aceptar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            
+            const usuario = document.getElementById('loginUsuario').value.trim();
+            const password = document.getElementById('loginPassword').value.trim();
+
+            if (usuario === "" || password === "") {
+                mostrarModal("Error", "Todos los campos son obligatorios");
+                return;
+            }
+
+            try {
+                const response = await fetch("http://localhost:3000/api/login", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ usuario, password })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    mostrarModal("Éxito", data.mensaje, () => {
+                        window.location.href = "tabla_usuarios.html";
+                    });
+                } else {
+                    mostrarModal("Error", data.mensaje);
+                }
+            } catch (error) {
+                console.error("Error en la solicitud", error);
+                mostrarModal("Error", "Error al conectar con el servidor");
+            }
+        });
+
+        function mostrarModal(titulo, mensaje, callback = null) {
+            document.getElementById("modalTitulo").innerText = titulo;
+            document.getElementById("modalTexto").innerText = mensaje;
+            
+            let modal = document.getElementById("modalMensaje");
+            modal.classList.remove("hidden");
+            modal.firstElementChild.classList.remove("opacity-0");
+            
+            document.getElementById("cerrarModal").onclick = () => {
+                modal.firstElementChild.classList.add("opacity-0");
+                setTimeout(() => modal.classList.add("hidden"), 300);
+                if (callback) callback();
+            };
+        }
+    </script>
+</body>
+</html>
