@@ -252,14 +252,40 @@ async function cargarRegistros() {
         console.error("Error al cargar los registros:", error);
     }
 }
-document.getElementById("btnCancelarConfirmacion").addEventListener("click", function () {
-    document.getElementById("confirmModal").classList.add("hidden");
+document.addEventListener("DOMContentLoaded", function () {
+    let btnCancelarEdicion = document.getElementById("btnCancelarEdicion");
+    let btnGuardarEdicion = document.getElementById("btnGuardarEdicion");
+    let btnCancelarConfirmacion = document.getElementById("btnCancelarConfirmacion");
+    let btnConfirmarActualizacion = document.getElementById("btnConfirmarActualizacion");
+
+    if (btnCancelarEdicion) {
+        btnCancelarEdicion.addEventListener("click", function () {
+            document.getElementById("editModal").classList.add("hidden");
+        });
+    }
+
+    if (btnGuardarEdicion) {
+        btnGuardarEdicion.addEventListener("click", function () {
+            document.getElementById("editModal").classList.add("hidden"); // Oculta el modal de edición
+            document.getElementById("confirmModal").classList.remove("hidden"); // Muestra el modal de confirmación
+        });
+    }
+
+    if (btnCancelarConfirmacion) {
+        btnCancelarConfirmacion.addEventListener("click", function () {
+            document.getElementById("confirmModal").classList.add("hidden"); // Oculta el modal de confirmación
+            document.getElementById("editModal").classList.remove("hidden"); // Vuelve a mostrar el modal de edición
+        });
+    }
+
+    if (btnConfirmarActualizacion) {
+        btnConfirmarActualizacion.addEventListener("click", async function () {
+            await guardarEdicion(); // Llamamos la función para actualizar
+            document.getElementById("confirmModal").classList.add("hidden"); // Cierra el modal de confirmación
+        });
+    }
 });
 
-document.getElementById("btnConfirmarActualizacion").addEventListener("click", function () {
-    actualizarUsuario(); // Llamamos la función de actualización
-    document.getElementById("confirmModal").classList.add("hidden"); // Ocultamos el modal de confirmación
-});
 
 /**
  * Abre el modal de edición con los datos del usuario seleccionado.
@@ -314,7 +340,7 @@ document.getElementById("btnGuardarEdicion").addEventListener("click", async fun
             throw new Error("Error al actualizar usuario");
         }
 
-        alert("Usuario actualizado correctamente");
+        // alert("Usuario actualizado correctamente");
         cerrarModal(); 
         cargarRegistros(); // Recargar la tabla de usuarios
     } catch (error) {
@@ -325,16 +351,14 @@ document.getElementById("btnGuardarEdicion").addEventListener("click", async fun
 
 
 // Función para cerrar el modal
-function cerrarModal() {
-    let modal = document.getElementById("editModal");
-    if (modal) {
-        modal.classList.add("hidden");
-    }
-}
-
-// Asegurar que el botón "Cancelar" cierra el modal
 document.addEventListener("DOMContentLoaded", function () {
-    document.getElementById("btnCancelarEdicion").addEventListener("click", cerrarModal);
+    let btnCancelarEdicion = document.getElementById("btnCancelarEdicion");
+
+    if (btnCancelarEdicion) {
+        btnCancelarEdicion.addEventListener("click", function () {
+            document.getElementById("editModal").classList.add("hidden");
+        });
+    }
 });
 
 
@@ -353,6 +377,8 @@ document.addEventListener("DOMContentLoaded", function () {
 /**
  * Guarda los cambios realizados en la edición de un usuario.
  */
+
+
  async function guardarEdicion() {
     const id = document.getElementById("editModal").getAttribute("data-id");
     const usuario = document.getElementById("editUsuario").value;
@@ -374,16 +400,18 @@ document.addEventListener("DOMContentLoaded", function () {
             throw new Error("Error al actualizar usuario");
         }
 
-        const resultado = await response.json();
-        console.log(resultado.message);
-        alert("Usuario actualizado correctamente");
-
         cerrarModal();
         cargarRegistros(); // Recarga la tabla
     } catch (error) {
         console.error("Error:", error);
-        alert("Error al actualizar usuario");
     }
+}
+
+/**
+ * Cierra el modal de edición.
+ */
+function cerrarModal() {
+    document.getElementById("editModal").classList.add("hidden");
 }
 
 async function eliminarUsuario(id) {
