@@ -214,7 +214,7 @@ router.post("/usuarios", upload.single("imagen"), async (req, res) => {
         if (!usuario || !password || !fecha || !texto) {
             return res.status(400).json({ mensaje: "Faltan datos obligatorios" });
         }
-
+        
         const imagen = req.file ? req.file.filename : null; // Guardar el nombre de la imagen
 
         const query = "INSERT INTO usuarios (usuario, password, fecha, texto, imagen) VALUES ($1, $2, $3, $4, $5)";

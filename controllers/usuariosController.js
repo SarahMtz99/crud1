@@ -110,39 +110,39 @@ const getUsuariosPorDB = async (req, res) => {
 
  
 // });
-app.get('/api/usuarios', async (req, res) => {
-  try {
-      const usuarios = await obtenerUsuariosDesdeBD(); // Aquí obtienes los datos de la DB
+// app.get('/api/usuarios', async (req, res) => {
+//   try {
+//       const usuarios = await obtenerUsuariosDesdeBD(); // Aquí obtienes los datos de la DB
 
-      const usuariosConImagen = usuarios.map(usuario => {
-          return {
-              ...usuario,
-              imagen: usuario.imagen ? `/uploads/${path.basename(usuario.imagen)}` : null
-          };
-      });
+//       const usuariosConImagen = usuarios.map(usuario => {
+//           return {
+//               ...usuario,
+//               imagen: usuario.imagen ? `/uploads/${path.basename(usuario.imagen)}` : null
+//           };
+//       });
 
-      res.json(usuariosConImagen);
-  } catch (error) {
-      console.error('Error obteniendo usuarios:', error);
-      res.status(500).json({ error: 'Error obteniendo usuarios' });
-  }
-});
+//       res.json(usuariosConImagen);
+//   } catch (error) {
+//       console.error('Error obteniendo usuarios:', error);
+//       res.status(500).json({ error: 'Error obteniendo usuarios' });
+//   }
+// });
 
-async function obtenerUsuarios(req, res) {
-  try {
-      const usuarios = await obtenerUsuariosDesdeBD();
+// async function obtenerUsuarios(req, res) {
+//   try {
+//       const usuarios = await obtenerUsuariosDesdeBD();
 
-      const usuariosConImagen = usuarios.map(usuario => {
-          let imagenPath = usuario.imagen ? `/uploads/${path.basename(usuario.imagen)}` : null;
-          return { ...usuario, imagen: imagenPath };
-      });
+//       const usuariosConImagen = usuarios.map(usuario => {
+//           let imagenPath = usuario.imagen ? `/uploads/${path.basename(usuario.imagen)}` : null;
+//           return { ...usuario, imagen: imagenPath };
+//       });
 
-      res.json(usuariosConImagen);
-  } catch (error) {
-      console.error('Error obteniendo usuarios:', error);
-      res.status(500).json({ error: 'Error obteniendo usuarios' });
-  }
-}
+//       res.json(usuariosConImagen);
+//   } catch (error) {
+//       console.error('Error obteniendo usuarios:', error);
+//       res.status(500).json({ error: 'Error obteniendo usuarios' });
+//   }
+// }
 
 
 module.exports = { getUsuariosMongo, getUsuariosPorDB, obtenerUsuarios};

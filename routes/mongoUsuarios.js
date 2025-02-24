@@ -24,7 +24,7 @@ router.post("/api/mongo/usuarios", async (req, res) => {
         const nuevoUsuario = new Usuario({ nombre, correo, contraseña, rol });
         await nuevoUsuario.save();
         res.json({ mensaje: "Usuario creado correctamente" });
-    } catch (error) {
+    } catch (error) {   
         console.error("Error al crear usuario:", error);
         res.status(500).json({ error: "No se pudo crear el usuario" });
     }
@@ -124,5 +124,6 @@ router.delete("/usuarios/:id", async (req, res) => {
         res.status(500).json({ mensaje: "Error interno del servidor" });
     }
 });
+
 
 module.exports = router;

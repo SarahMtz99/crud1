@@ -22,7 +22,7 @@
                         <th class="p-3 border border-gray-600">Texto</th>
                         <th class="p-3 border border-gray-600">Imagen</th>
                         <th class="p-3 border border-gray-600">Acciones</th>
-                    </tr>
+                    </tr>   
                 </thead>
                 <tbody id="userTable" class="bg-gray-800/60">
                     <!-- Filas dinámicas -->
@@ -51,7 +51,7 @@
     </div>
     <!-- Modal de postge-->
    <!-- MODAL DE EDICIÓN -->
-<!-- MODAL DE EDICIÓN -->
+<!-- MODAL DE EDICIÓN actualizacion de postgres -->
 <div id="editModal" class="btnEditar hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center">
     <div class="bg-white p-6 rounded-lg shadow-lg w-96">
         <h2 class="text-lg font-semibold mb-4">Editar Registro</h2>
@@ -73,6 +73,18 @@
             <textarea id="editTexto" class="w-full p-2 border rounded-md"></textarea>
         </div>
 
+        <!-- Mostrar la imagen actual -->
+        <div class="mb-3">
+            <label class="block text-sm font-medium text-gray-700">Imagen Actual</label>
+            <img id="editImagenPreview" src="" alt="Imagen actual" class="w-32 h-32 object-cover rounded-md border">
+        </div>
+
+        <!-- Input para cargar nueva imagen -->
+        <div class="mb-3">
+            <label for="editImagen" class="block text-sm font-medium text-gray-700">Actualizar Imagen</label>
+            <input type="file" id="editImagen" class="w-full p-2 border rounded-md">
+        </div>
+
         <div class="flex justify-end gap-2">
             <button id="btnCancelarEdicion" class="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600">Cancelar</button>
             <button id="btnGuardarEdicion" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Actualizar</button>
@@ -80,7 +92,8 @@
     </div>
 </div>
 
-<!-- MODAL DE CONFIRMACIÓN -->
+
+<!-- MODAL DE CONFIRMACIÓN --> -->
 <!-- <div id="confirmModal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center">
     <div class="bg-gradient-to-br from-[#e5fa79] to-[#a8d561] p-6 rounded-2xl shadow-xl w-96 border border-gray-700">
         <h3 class="text-xl font-bold mb-3 text-center text-gray-800">¿Guardar cambios?</h3>
@@ -95,19 +108,54 @@
 
 <!-- MODAL DE CONFIRMACIÓN -->
 <!-- MODAL DE CONFIRMACIÓN -->
+<!-- Modal de Confirmación -->
+<!-- Modal de confirmación -->
+<!-- Modal de Confirmación para Eliminar Usuario -->
+<div id="modalEliminar" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+    <div class="bg-white rounded-xl shadow-xl w-96 p-6 text-center">
+        <h2 class="text-xl font-semibold text-gray-900">¿Eliminar Usuario?</h2>
+        <p class="text-gray-600 mt-2">Esta acción no se puede deshacer.</p>
+
+        <div class="flex justify-center mt-4 space-x-3">
+            <button id="cancelarEliminar" class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition">Cancelar</button>
+            <button id="confirmarEliminar" class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition">Eliminar</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de Confirmación para Eliminar en MongoDB -->
+<!-- Modal de Confirmación para MongoDB -->
+<div id="modalEliminarMongo" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 hidden">
+    <div class="bg-gray-800 text-white rounded-xl shadow-lg w-96 p-6 text-center">
+        <h2 class="text-xl font-semibold">¿Eliminar Registro?</h2>
+        <p class="text-gray-300 mt-2">Esta acción no se puede deshacer.</p>
+
+        <div class="flex justify-center mt-4 space-x-3">
+            <button id="cancelarEliminarMongo" class="bg-gray-600 px-4 py-2 rounded-lg hover:bg-gray-700 transition">Cancelar</button>
+            <button id="confirmarEliminarMongo" class="bg-red-600 px-4 py-2 rounded-lg hover:bg-red-700 transition">Eliminar</button>
+        </div>
+    </div>
+</div>
+<!-- modal de confirmacion actualizacion -->
 <div id="confirmModal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center">
-    <div class="bg-gradient-to-br from-[#e5fa79] to-[#a8d561] p-6 rounded-2xl shadow-xl w-96 border border-gray-700">
-        <h3 class="text-xl font-bold mb-3 text-center text-gray-800">¿Guardar cambios?</h3>
-        <p class="text-center text-gray-700 mb-4">¿Estás seguro de que deseas guardar los cambios en el registro?</p>
-        <div class="flex justify-end gap-3">
-            <button id="btnCancelarConfirmacion" class="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition transform hover:scale-105">Cancelar</button>
-            <button id="btnConfirmarEdicion" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition transform hover:scale-105">Confirmar</button>
+    <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+        <h2 class="text-lg font-semibold mb-4">¿Estás seguro?</h2>
+        <p class="mb-4">¿Quieres actualizar este usuario?</p>
+        <div class="flex justify-end gap-2">
+            <button id="btnCancelarConfirmacion" class="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600">
+                Cancelar
+            </button>
+            <button id="btnConfirmarActualizacion" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
+                Sí, actualizar
+            </button>
         </div>
     </div>
 </div>
 
 
-    <!-- modal del usuario mongo-->
+
+
+    <!-- modal de actualizacion del usuario mongo-->
     <div id="usuarioModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 hidden items-center justify-center">
         <div class="bg-white p-6 rounded-lg shadow-lg w-96">
           <h2 class="text-lg font-semibold mb-4">Actualizar Usuario</h2>
@@ -143,28 +191,51 @@
      
       
 
-<script src="js/modals.js"></script>
+<!-- <script src="js/modals.js"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
 </body>
 </html>
     <script>
-        let editIndex = null;
-        async function cargarRegistros() {
+        document.addEventListener("DOMContentLoaded", function () {
+    cargarRegistros(); // Cargar la lista de usuarios al inicio
+
+    document.getElementById("cancelarEliminar")?.addEventListener("click", function () {
+        document.getElementById("modalEliminar")?.classList.add("hidden");
+    });
+});
+
+        // Variable para almacenar el índice del usuario en edición
+let editIndex = null;
+
+/**
+ * Carga la lista de usuarios desde la API y los muestra en la tabla de usuarios.
+ */
+ document.querySelectorAll(".btn-eliminar").forEach((btn) => {
+    btn.addEventListener("click", function () {
+        const userId = this.getAttribute("data-id"); // Obtiene el ID del usuario
+        eliminarUsuario(userId);
+    });
+});
+
+async function cargarRegistros() {
     try {
         const response = await fetch("http://localhost:3000/api/usuarios");
         const registros = await response.json();
 
         const table = document.getElementById("userTable");
-        table.innerHTML = "";
+        table.innerHTML = ""; // Limpia la tabla antes de cargar nuevos registros
 
         registros.forEach((registro) => {
             const row = table.insertRow();
 
-            // Asegurar que la imagen se muestre correctamente
+            // Verifica si el usuario tiene imagen, si no, muestra "Sin imagen"
             let imagenHTML = registro.imagen
                 ? `<img src="${registro.imagen}" alt="Imagen de usuario" class="w-16 h-16 object-cover rounded-lg">`
                 : "Sin imagen";
 
+            // Inserta los datos en la tabla
             row.innerHTML = `
                 <td class="border p-2">${registro.usuario}</td>
                 <td class="border p-2">${registro.fecha.split("T")[0]}</td>
@@ -172,218 +243,415 @@
                 <td class="p-3 border border-gray-600">${imagenHTML}</td>
                 <td class="border p-2">
                     <button onclick="abrirModal(${registro.id})" class="bg-green-500 text-white p-1 rounded">Actualizar</button>
-                    <button onclick="eliminarUsuario(${registro.id})" class="bg-red-500 text-white p-1 rounded">Eliminar</button>
+                    <button onclick="eliminarUsuario(${registro.id})" class="btnEliminar bg-red-500 text-white p-1 rounded">Eliminar</button>
                 </td>
             `;
+            
         });
     } catch (error) {
         console.error("Error al cargar los registros:", error);
     }
 }
+document.getElementById("btnCancelarConfirmacion").addEventListener("click", function () {
+    document.getElementById("confirmModal").classList.add("hidden");
+});
 
+document.getElementById("btnConfirmarActualizacion").addEventListener("click", function () {
+    actualizarUsuario(); // Llamamos la función de actualización
+    document.getElementById("confirmModal").classList.add("hidden"); // Ocultamos el modal de confirmación
+});
 
-function abrirModal(id) {
+/**
+ * Abre el modal de edición con los datos del usuario seleccionado.
+ * @param {number} id - ID del usuario a editar.
+ */
+ function abrirModal(id) {
     fetch(`http://localhost:3000/api/usuarios/${id}`)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            return response.json();
-        })
+        .then(response => response.json())
         .then(usuario => {
-            console.log("Usuario cargado:", usuario);
             let modal = document.getElementById("editModal");
-            if (!modal) {
-                console.error("El modal no existe en el DOM.");
-                return;
-            }
-            document.getElementById("editUsuario").value = usuario.usuario;
-            document.getElementById("editFecha").value = usuario.fecha.split("T")[0]; 
-            document.getElementById("editTexto").value = usuario.texto;
+            if (!modal) return;
+
+            // Llenar los campos con los datos obtenidos
+            document.getElementById("editUsuario").value = usuario.usuario || "";
+            document.getElementById("editFecha").value = usuario.fecha ? usuario.fecha.split("T")[0] : "";
+            document.getElementById("editTexto").value = usuario.texto || "";
+            
+            // Si tiene imagen, mostrarla; si no, poner una imagen por defecto
+            let imagenPreview = document.getElementById("editImagenPreview");
+            imagenPreview.src = usuario.imagen ? usuario.imagen : "default.png"; 
+
+            // Guardar el ID en un atributo del modal
             modal.setAttribute("data-id", id);
             modal.classList.remove("hidden");
         })
-        .catch(error => {
-            console.error("Error al cargar el usuario:", error);
-        });
+        .catch(error => console.error("Error al cargar usuario:", error));
 }
-        function cerrarModal() {
-            document.getElementById("editModal").classList.add("hidden");
-        }
-
-        async function guardarEdicion() {
-    const id = document.getElementById("editModal").getAttribute("data-id");
+document.getElementById("btnGuardarEdicion").addEventListener("click", async function () {
+    let modal = document.getElementById("editModal");
+    let id = modal.getAttribute("data-id");
+    
     const usuario = document.getElementById("editUsuario").value;
     const fecha = document.getElementById("editFecha").value;
     const texto = document.getElementById("editTexto").value;
     const imagenInput = document.getElementById("editImagen").files[0];
-    let requestOptions;
+
+    const formData = new FormData();
+    formData.append("usuario", usuario);
+    formData.append("fecha", fecha);
+    formData.append("texto", texto);
     if (imagenInput) {
-        const formData = new FormData();
-        formData.append("usuario", usuario);
-        formData.append("fecha", fecha);
-        formData.append("texto", texto);
         formData.append("imagen", imagenInput);
-        requestOptions = {
-            method: "PUT",
-            body: formData
-        };
-    } else {
-        requestOptions = {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                usuario,
-                fecha,
-                texto
-            })
-        };
     }
 
     try {
-        const response = await fetch(`http://localhost:3000/api/usuarios/${id}`, requestOptions);
+        const response = await fetch(`http://localhost:3000/api/usuarios/${id}`, {
+            method: "PUT",
+            body: formData,
+        });
+
         if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.message || "Error al actualizar el usuario");
+            throw new Error("Error al actualizar usuario");
         }
-        const data = await response.json();
-        console.log("Usuario actualizado:", data);
+
         alert("Usuario actualizado correctamente");
-        cerrarModal();
-        cargarRegistros(); 
+        cerrarModal(); 
+        cargarRegistros(); // Recargar la tabla de usuarios
     } catch (error) {
         console.error("Error:", error);
-        alert(error.message);
+        alert("Error al actualizar usuario");
+    }
+});
+
+
+// Función para cerrar el modal
+function cerrarModal() {
+    let modal = document.getElementById("editModal");
+    if (modal) {
+        modal.classList.add("hidden");
+    }
+}
+
+// Asegurar que el botón "Cancelar" cierra el modal
+document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("btnCancelarEdicion").addEventListener("click", cerrarModal);
+});
+
+
+// Asegurarnos de que el botón "Cancelar" cierre el modal
+// document.getElementById("btnCancelarEdicion").addEventListener("click", cerrarModal);
+
+
+
+/**
+ * Cierra el modal de edición.
+ */
+// function cerrarModal() {
+//     document.getElementById("editModal").classList.add("hidden");
+// }
+
+/**
+ * Guarda los cambios realizados en la edición de un usuario.
+ */
+ async function guardarEdicion() {
+    const id = document.getElementById("editModal").getAttribute("data-id");
+    const usuario = document.getElementById("editUsuario").value;
+    const fecha = document.getElementById("editFecha").value;
+    const texto = document.getElementById("editTexto").value;
+
+    const datos = { usuario, fecha, texto };
+
+    try {
+        const response = await fetch(`http://localhost:3000/api/usuarios/${id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(datos),
+        });
+
+        if (!response.ok) {
+            throw new Error("Error al actualizar usuario");
+        }
+
+        const resultado = await response.json();
+        console.log(resultado.message);
+        alert("Usuario actualizado correctamente");
+
+        cerrarModal();
+        cargarRegistros(); // Recarga la tabla
+    } catch (error) {
+        console.error("Error:", error);
+        alert("Error al actualizar usuario");
     }
 }
 
 async function eliminarUsuario(id) {
-    try {
-        const response = await fetch(`http://localhost:3000/api/usuarios/${id}`, {
-            method: "DELETE",
-        });
+    if (!id) return;
 
-        if (!response.ok) {
-            throw new Error("Error al eliminar: " + response.statusText);
+    // Verificar si ya existe un modal abierto y eliminarlo antes de crear otro
+    document.getElementById("modalEliminar")?.remove();
+
+    // Modal con diseño oscuro y botones funcionales
+    const modalHTML = `
+        <div id="modalEliminar" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">
+            <div class="bg-gray-800 text-white rounded-xl shadow-lg w-96 p-6 text-center">
+                <h2 class="text-xl font-semibold">¿Eliminar Usuario?</h2>
+                <p class="text-gray-300 mt-2">Esta acción no se puede deshacer.</p>
+
+                <div class="flex justify-center mt-4 space-x-3">
+                    <button id="cancelarEliminar" class="bg-gray-600 px-4 py-2 rounded-lg hover:bg-gray-700 transition">Cancelar</button>
+                    <button id="confirmarEliminar" class="bg-red-600 px-4 py-2 rounded-lg hover:bg-red-700 transition">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    `;
+
+    // Insertar el modal en el body
+    document.body.insertAdjacentHTML("beforeend", modalHTML);
+
+    // Obtener botones
+    const modalEliminar = document.getElementById("modalEliminar");
+    const cancelarEliminar = document.getElementById("cancelarEliminar");
+    const confirmarEliminar = document.getElementById("confirmarEliminar");
+
+    // Evento para cerrar modal al hacer clic en cancelar
+    cancelarEliminar.addEventListener("click", function () {
+        modalEliminar.remove();
+    });
+
+    // Evento para confirmar eliminación
+    confirmarEliminar.addEventListener("click", async function () {
+        try {
+            const response = await fetch(`http://localhost:3000/api/usuarios/${id}`, { method: "DELETE" });
+
+            if (!response.ok) throw new Error("Error al eliminar usuario");
+
+            // Eliminar modal después de la acción
+            modalEliminar.remove();
+            cargarRegistros();
+        } catch (error) {
+            console.error("Error al eliminar:", error);
         }
-        alert(`Usuario con ID ${id} eliminado correctamente`);
-        location.reload(); 
-    } catch (error) {
-        console.error("Error:", error);
-        alert(error.message);
-    }
+    });
 }
+
+
+
+document.getElementById("cancelarEliminar").addEventListener("click", function () {
+    document.getElementById("modalEliminar").classList.add("hidden");
+});
+
+document.getElementById("confirmarEliminar").addEventListener("click", function () {
+    const id = this.getAttribute("data-id");
+    if (id) {
+        eliminarUsuario(id);
+    }
+
+    // Ocultar el modal después de eliminar
+    document.getElementById("modalEliminar").classList.add("hidden");
+});
+
+// Agrega eventos de eliminación a los botones de la lista
 document.querySelectorAll(".btnEliminar").forEach((btn) => {
     btn.addEventListener("click", function () {
         const id = this.getAttribute("data-id");
         eliminarUsuario(id);
     });
 });
-document.getElementById("btnCerrarSesion").addEventListener("click", function () {
-    localStorage.removeItem("usuario"); 
-    localStorage.removeItem("token");   
-    window.location.href = "login.html"; 
+document.getElementById("userTable").addEventListener("click", function (event) {
+    if (event.target.classList.contains("btnEliminar")) {
+        const id = event.target.getAttribute("data-id");
+        console.log("Botón Eliminar clickeado. ID:", id);
+
+        if (id) {
+            // Guardamos el ID en un atributo del modal
+            document.getElementById("confirmarEliminar").setAttribute("data-id", id);
+
+            // Mostramos el modal
+            document.getElementById("modalEliminar").classList.remove("hidden");
+        }
+    }
 });
-        document.addEventListener("DOMContentLoaded", cargarRegistros);
-async function cargarRegistrosMongo() {
+
+// Cierra sesión eliminando los datos del usuario en localStorage
+document.getElementById("btnCerrarSesion").addEventListener("click", function () {
+    localStorage.removeItem("usuario");
+    localStorage.removeItem("token");
+    window.location.href = "login.html"; // Redirige a la página de login
+});
+
+// Carga los registros al cargar la página
+document.addEventListener("DOMContentLoaded", cargarRegistros);
+
+/**
+ * Carga los usuarios desde MongoDB y los muestra en la tabla.
+ */
+ async function cargarRegistrosMongo() {
     try {
         const response = await fetch("http://localhost:3000/api/mongoUsuarios");
         const data = await response.json();
 
-        console.log("Respuesta completa de la API:", data); 
+        console.log("Respuesta completa de la API:", data);
 
         if (!Array.isArray(data)) {
             throw new Error("La API no devolvió un array.");
         }
 
         const table = document.getElementById("mongoTable");
-        table.innerHTML = "";
+        table.innerHTML = ""; // Limpia la tabla antes de cargar nuevos registros
 
         data.forEach((registro) => {
-    const row = table.insertRow();
-    row.innerHTML = `
-        <td class="border p-2">${registro.usuario}</td>
-        <td class="border p-2">${registro.fecha ? registro.fecha.split("T")[0] : "N/A"}</td>
-        <td class="border p-2">${registro.texto || "Sin texto"}</td>
-        <td class="border p-2">
-            ${registro.imagen ? `<img src="${registro.imagen}" alt="Imagen" class="h-10">` : "Sin imagen"}
-        </td>
-        <td class="border p-2 flex flex-col gap-2">
-            <button onclick="abrirModalMongo('${registro._id}')" class="bg-green-500 text-white p-1 rounded hover:scale-105 transform transition duration-200">Actualizar</button>
-            <button onclick="eliminarUsuarioMongo('${registro._id}')" class="bg-red-500 text-white p-1 rounded hover:scale-105 transform transition duration-200">Eliminar</button>
-        </td>
-    `;
-});
-
+            const row = table.insertRow();
+            row.innerHTML = `
+                <td class="border p-2">${registro.usuario}</td>
+                <td class="border p-2">${registro.fecha ? registro.fecha.split("T")[0] : "N/A"}</td>
+                <td class="border p-2">${registro.texto || "Sin texto"}</td>
+                <td class="border p-2">
+                    ${registro.imagen ? `<img src="${registro.imagen}" alt="Imagen" class="h-10">` : "Sin imagen"}
+                </td>
+                <td class="border p-2 flex flex-col gap-2">
+                    <button onclick="abrirModalMongo('${registro._id}')" class="bg-green-500 text-white p-1 rounded hover:scale-105 transform transition duration-200">Actualizar</button>
+                    <button class="btnEliminarMongo  bg-red-500 text-white p-1 rounded" data-id="${registro._id}">Eliminar</button>
+                </td>
+            `;
+        });
     } catch (error) {
         console.error("Error al cargar los registros de MongoDB:", error);
     }
 }
-document.addEventListener("DOMContentLoaded", () => {
-            cargarRegistrosMongo();
-        });
-        async function eliminarUsuarioMongo(id) {
-    console.log("🛠️ Intentando eliminar usuario con ID:", id);
 
+
+// 🔹 Asigna un solo evento `click` a la tabla
+document.getElementById("userTable").addEventListener("click", function (event) {
+    if (event.target.classList.contains("btnEliminar")) {
+        const id = event.target.getAttribute("data-id");
+        console.log("Botón Eliminar clickeado. ID:", id);
+        eliminarUsuario(id);
+    }
+
+    if (event.target.classList.contains("btnActualizar")) {
+        const id = event.target.getAttribute("data-id");
+        console.log("Botón Actualizar clickeado. ID:", id);
+        abrirModal(id);
+    }
+});
+// Carga los registros de MongoDB al cargar la página
+document.addEventListener("DOMContentLoaded", () => {
+    cargarRegistrosMongo();
+});
+
+/**
+ * Elimina un usuario de la base de datos MongoDB.
+ * @param {string} id - ID del usuario en MongoDB.
+ */
+ document.addEventListener("DOMContentLoaded", () => {
+    cargarRegistrosMongo(); // Cargar usuarios al inicio
+});
+
+// Mostrar modal al hacer clic en "Eliminar"
+document.getElementById("userTable").addEventListener("click", function (event) {
+    if (event.target.classList.contains("btnEliminar")) {
+        const id = event.target.getAttribute("data-id");
+        console.log("ID para eliminar:", id);
+
+        if (id) {
+            // Guardamos el ID en el botón de confirmación
+            document.getElementById("confirmarEliminar").setAttribute("data-id", id);
+
+            // Mostrar modal
+            document.getElementById("modalEliminar").classList.remove("hidden");
+        }
+    }
+});
+
+// Cerrar modal al cancelar
+// Mostrar el modal de confirmación
+// Escuchar clic en el botón de eliminar de MongoDB
+document.getElementById("mongoTable").addEventListener("click", function (event) {
+    if (event.target.classList.contains("btnEliminarMongo")) {
+        const id = event.target.getAttribute("data-id");
+
+        if (id) {
+            // Guardamos el ID en el botón de confirmación
+            document.getElementById("confirmarEliminarMongo").setAttribute("data-id", id);
+
+            // Mostrar el modal de MongoDB
+            document.getElementById("modalEliminarMongo").classList.remove("hidden");
+            document.getElementById("modalEliminarMongo").classList.add("flex");
+        }
+    }
+});
+
+// Cerrar modal al cancelar
+document.getElementById("cancelarEliminarMongo").addEventListener("click", function () {
+    document.getElementById("modalEliminarMongo").classList.add("hidden");
+    document.getElementById("modalEliminarMongo").classList.remove("flex");
+});
+
+// Confirmar eliminación en MongoDB
+document.getElementById("confirmarEliminarMongo").addEventListener("click", function () {
+    const id = this.getAttribute("data-id");
+
+    if (id) {
+        eliminarUsuarioMongo(id);
+    }
+
+    // Ocultar el modal después de eliminar
+    document.getElementById("modalEliminarMongo").classList.add("hidden");
+});
+
+/**
+ * Función para eliminar un usuario en MongoDB
+ */
+async function eliminarUsuarioMongo(id) {
     try {
-        const respuesta = await fetch(`http://localhost:3000/api/mongo/usuarios/${id}`, {
+        const response = await fetch(`http://localhost:3000/api/mongo/usuarios/${id}`, {
             method: "DELETE",
         });
 
-        if (!respuesta.ok) {
+        if (!response.ok) {
             throw new Error("Error al eliminar el usuario de MongoDB");
         }
 
-        const resultado = await respuesta.json();
-        console.log(" Usuario eliminado:", resultado);
+        console.log("Usuario eliminado correctamente");
+        cargarRegistrosMongo(); // Recargar la tabla después de eliminar
     } catch (error) {
-        console.error(" Error eliminando usuario de MongoDB:", error);
+        console.error("Error eliminando usuario de MongoDB:", error);
     }
 }
-function abrirModalMongo(id) {
-    console.log("Consultando usuario con ID:", id);
 
-    fetch(`http://localhost:3000/api/mongo/usuarios/${id}`)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log("Datos del usuario:", data);
 
-        ///
-            document.getElementById("modalUsuarioId").value = data._id;
-            document.getElementById("modalUsuarioNombre").value = data.usuario;
-            document.getElementById("modalUsuarioFecha").value = data.fecha.split("T")[0];
-            document.getElementById("modalUsuarioTexto").value = data.texto;
-            document.getElementById("modalUsuarioImagen").src = `http://localhost:3000/uploads/${data.imagen}`;
+document.getElementById("mongoTable").addEventListener("click", function (event) {
+    if (event.target.classList.contains("btnEliminar")) {
+        const id = event.target.getAttribute("data-id");
+        console.log("Botón Eliminar clickeado. ID:", id);
 
-        ////
-            document.getElementById('usuarioModal').classList.remove("hidden");
-            document.getElementById('usuarioModal').classList.add("flex");
-        })
-        .catch(error => {
-            console.error("Error al cargar usuario de MongoDB:", error);
-        });
-}
+        if (id) {
+            eliminarUsuarioMongo(id);
+        }
+    }
+});
+
+// Función para cerrar el modal de edición
 function cerrarModal() {
     document.getElementById('usuarioModal').classList.add("hidden");
     document.getElementById('usuarioModal').classList.remove("flex");
 }
 
+// Función para guardar la edición del usuario en MongoDB
 async function guardarEdicionMongo() {
+    // Obtiene el ID del usuario desde el modal
     const id = document.getElementById("editModal").getAttribute("data-id");
     const usuario = document.getElementById("editUsuario").value;
     const fecha = document.getElementById("editFecha").value;
     const texto = document.getElementById("editTexto").value;
 
+    // Crea un objeto con los datos actualizados
     const datosActualizados = { usuario, fecha, texto };
 
     try {
+        // Realiza una solicitud PUT para actualizar los datos del usuario
         const response = await fetch(`http://localhost:3000/api/mongo/usuarios/${id}`, {
             method: "PUT",
             headers: {
@@ -392,59 +660,71 @@ async function guardarEdicionMongo() {
             body: JSON.stringify(datosActualizados),
         });
 
+        // Verifica si la actualización fue exitosa
         if (!response.ok) {
             throw new Error("Error al actualizar el usuario en MongoDB");
         }
 
         alert("Usuario actualizado con éxito en MongoDB");
-        cerrarModal();
-        cargarRegistrosMongo();
+        cerrarModal(); // Cierra el modal después de la actualización
+        cargarRegistrosMongo(); // Recarga la lista de usuarios
     } catch (error) {
         console.error("Error al actualizar usuario en MongoDB:", error);
         alert("Hubo un error al actualizar el usuario en MongoDB");
     }
 }
 
+// Variable para almacenar el ID del usuario a eliminar
 let usuarioAEliminar = null; 
 
+// Función para mostrar el modal de confirmación de eliminación
 function mostrarModalEliminar(id) {
     usuarioAEliminar = id; 
     document.getElementById("modalConfirmarEliminar").classList.remove("hidden");
 }
 
+// Función para cerrar el modal de eliminación
 function cerrarModalEliminar() {
     document.getElementById("modalConfirmarEliminar").classList.add("hidden");
 }
+
+// Evento para confirmar la eliminación del usuario
 document.getElementById("confirmarEliminar").addEventListener("click", async function () {
     if (usuarioAEliminar) {
         try {
+            // Realiza una solicitud DELETE para eliminar el usuario
             const response = await fetch(`http://localhost:3000/api/usuarios/${usuarioAEliminar}`, {
                 method: "DELETE",
             });
 
+            // Verifica si la eliminación fue exitosa
             if (!response.ok) throw new Error("Error al eliminar usuario");
 
-            cargarRegistros();
-            cerrarModalEliminar(); 
+            cargarRegistros(); // Recarga la lista de usuarios
+            cerrarModalEliminar(); // Cierra el modal de confirmación
         } catch (error) {
             console.error("Error al eliminar usuario:", error);
         }
     }
 });
+
+// Función para actualizar los datos de un usuario en MongoDB
 async function actualizarUsuarioMongo() {
     const id = document.getElementById("modalUsuarioId").value;
     const nombre = document.getElementById("modalUsuarioNombre").value;
     const fecha = document.getElementById("modalUsuarioFecha").value;
     const texto = document.getElementById("modalUsuarioTexto").value;
 
+    // Verifica que el ID no esté vacío
     if (!id) {
         console.error("id no definido");
         return;
     }
 
     try {
-        console.log(` PUT http://localhost:3000/api/mongo/${id}`);
+        console.log(`PUT http://localhost:3000/api/mongo/${id}`);
 
+        // Realiza una solicitud PUT para actualizar los datos del usuario
         const response = await fetch(`http://localhost:3000/api/mongo/${id}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
@@ -453,6 +733,7 @@ async function actualizarUsuarioMongo() {
 
         console.log("Respuesta recibida:", response);
 
+        // Verifica si la respuesta es correcta
         if (!response.ok) {
             const errorData = await response.text();
             console.error("Error en el servidor:", errorData);
@@ -464,10 +745,6 @@ async function actualizarUsuarioMongo() {
         console.error("Error actualizando usuario:", error.message);
     }
 }
-
-
-
-    </script>
+</script>
 </body>
 </html>
-
